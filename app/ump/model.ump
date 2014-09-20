@@ -1,0 +1,8 @@
+generate Php;
+
+
+class Downloader
+{
+  sourceDir;
+  remoteUrl;
+}
