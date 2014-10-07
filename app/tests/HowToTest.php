@@ -1,11 +1,12 @@
 <?php
 
-class HowToTest extends UnitTestCase
+class HowToTest extends \PHPUnit_Framework_TestCase
 {
-
+  private $one;
+  
   public function setUp()
   {
-    $one = "one";
+    $this->one = "one";    
   }
 
   public function tearDown()
@@ -14,8 +15,7 @@ class HowToTest extends UnitTestCase
 
   public function testOnePlusPne()
   {
-    $one_plus_one = $one + $one;
-    $this->assertEqual("oneone", $one_plus_one);
+    $one_plus_one = $this->one . $this->one;
+    $this->assertEquals("oneone", $one_plus_one);
   }
-
 }

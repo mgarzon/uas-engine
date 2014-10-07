@@ -7,11 +7,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Language" content="en-us" />
-  <meta name="author" content="Umple" />
+  <meta name="Nabil Maadarani" content="Umple" />
 
   <title><?php echo g("title") ?></title>
   <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="Nabil Maadarani" content="">
 
   <meta name="viewport" content="width=device-width">
 </head>
