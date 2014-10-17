@@ -1,2 +1,2 @@
 *.DS_Store
-app/models
+app/models/Downloader.php
