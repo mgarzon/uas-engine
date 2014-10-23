@@ -1,16 +1,25 @@
 class Downloader
 {
+  projectRepo;
   remoteUrl;
   destinationDir;
 
-  public downloadProject()
+  public downloadProjectGithub()
   {
   	$zipFile = $this->getDestinationDir() . "/project.zip"; // Local Zip File Path
 	$zipResource = fopen($zipFile, "w");
 	
+	// Get the master archive from the project
+	if(substr($this->getRemoteUrl(), -1) == '/') {
+	  $projectArchive = $this->getRemoteUrl() . 'archive/master.zip';
+	} else {
+	  $projectArchive = $this->getRemoteUrl() . '/archive/master.zip';
+	}
+
 	// Get The Zip File From Server
+	echo("** Downloading project zip...\n");
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $this->getRemoteUrl());
+	curl_setopt($ch, CURLOPT_URL, $projectArchive);
 	curl_setopt($ch, CURLOPT_FAILONERROR, true);
 	curl_setopt($ch, CURLOPT_HEADER, 0);
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -25,5 +34,24 @@ class Downloader
 	 echo "Error :- ".curl_error($ch);
 	}
 	curl_close($ch);
+
+	// Extract project zip
+	echo("** Extracting project zip...\n");
+    $zip = new ZipArchive;
+    $res = $zip->open($zipFile);
+
+    if($res == TRUE) {
+     $zip->extractTo($this->getDestinationDir());
+     $zip->close();
+    } else {
+    	exit("Could not extract project archive!");
+    }
+  }
+
+  public function downloadProjectGoogleCode()
+  {
+  	echo("** Downloading project...\n");
+    $command = 'hg clone ' . $this->getRemoteUrl() . ' ' . $this->getDestinationDir() . 'project/';
+    exec($command);
   }
 }

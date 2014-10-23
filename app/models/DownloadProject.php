@@ -2,19 +2,23 @@
   include("Downloader.php");
 
   // Fetch command-line arguments
-  $url = $argv[1];
-  $dir = $argv[2];
+  $repo = $argv[1];
+  $url = $argv[2];
+  $dir = $argv[3];
 
-  // Download project
-  $myDownloader = new Downloader($url, $dir);
-  $myDownloader->downloadProject();
+  // Create Downloader instance
+  $myDownloader = new Downloader($repo, $url, $dir);
 
-  // Extract project
-  $file = $dir . "/project.zip";
-  $zip = new ZipArchive;
-  $res = $zip->open($file);
+  if(strcmp($myDownloader->getProjectRepo(), 'gh') == 0) {
+    // Download project from Github & unzip
+    $myDownloader->downloadProjectGithub(); 
+  }
 
-  if($res == TRUE) {
-  	$zip->extractTo($dir);
-  	$zip->close();
+  else if(strcmp($myDownloader->getProjectRepo(), 'gc') == 0) {
+    // Download project from Google Code using hg command
+    $myDownloader->downloadProjectGoogleCode();
+  }
+
+  else {
+    echo("** ERROR: Repo must be gh for Github or gc for Google Code\n");
   }
