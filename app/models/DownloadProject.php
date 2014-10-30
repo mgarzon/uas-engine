@@ -11,7 +11,8 @@
 
   if(strcmp($myDownloader->getProjectRepo(), 'gh') == 0) {
     // Download project from Github & unzip
-    $myDownloader->downloadProjectGithub(); 
+    $myDownloader->downloadProjectGithub();
+    echo("The project name is " . $myDownloader->getProjectName() . "\n");
   }
 
   else if(strcmp($myDownloader->getProjectRepo(), 'gc') == 0) {

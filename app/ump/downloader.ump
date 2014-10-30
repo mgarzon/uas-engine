@@ -3,6 +3,7 @@ class Downloader
   projectRepo;
   remoteUrl;
   destinationDir;
+  projectName=null;
 
   public downloadProjectGithub()
   {
@@ -35,10 +36,11 @@ class Downloader
 	}
 	curl_close($ch);
 
-	// Extract project zip
+	// Extract project zip and save its name
 	echo("** Extracting project zip...\n");
     $zip = new ZipArchive;
     $res = $zip->open($zipFile);
+    $this->projectName = $zip->getNameIndex(0);
 
     if($res == TRUE) {
      $zip->extractTo($this->getDestinationDir());
