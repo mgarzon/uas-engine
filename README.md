@@ -5,7 +5,23 @@ UAS Engine stands for Umplification And Statistics Engine. This project is part 
 
 UAS Engine automatically umplifies open-source Java projects by reverse engineering them from Java code to Umple code, and collects several statistics about them.
 
-To use the Downloader, run the "DownloadProject.php" from the command line using "gc" for Google Code repos and "gh" for Github repos:
+The Downloader takes any project name and downloads it from GitHub or Google Code (depending on the user input). The project is then deployed/unzipped and only necessary files are kept.
+
+The Umplificator then accesses the project directory and umplifies all Java files.
+
+Since at this stage no statistics are returned (yet!), the entire thing can be done through the command line, by running "DownloadProject.php" and using "gc" for Google Code repos and "gh" for Github repos:
+
 ```
-php DownloadProject.php [gc/gh] [Google Code/Github URL] [Local Destination Directory]
+php DownloadProject.php [gc/gh] [Google Code/Github Project Name] [Local Destination Directory]
 ```
+
+Here is an example from Google Code (MOA project):
+```
+php DownloadProject.php gc moa ~/Developer/
+```
+
+And here is an example from GitHub (ToroDB Database):
+```
+php DownloadProject.php gh traex/RippleEffect ~/Developer/
+```
+Note that with Github, the project name is preceded by the username of the Github project owner.
