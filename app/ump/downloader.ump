@@ -3,24 +3,17 @@ class Downloader
   projectRepo;
   remoteUrl;
   destinationDir;
-  projectName=null;
+  projectName;
 
   public downloadProjectGithub()
   {
-  	$zipFile = $this->getDestinationDir() . "/project.zip"; // Local Zip File Path
+  	$zipFile = $this->getDestinationDir() . "/$this->getProjectName.zip"; // Local Zip File Path
 	$zipResource = fopen($zipFile, "w");
-	
-	// Get the master archive from the project
-	if(substr($this->getRemoteUrl(), -1) == '/') {
-	  $projectArchive = $this->getRemoteUrl() . 'archive/master.zip';
-	} else {
-	  $projectArchive = $this->getRemoteUrl() . '/archive/master.zip';
-	}
 
 	// Get The Zip File From Server
 	echo("** Downloading project zip...\n");
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $projectArchive);
+	curl_setopt($ch, CURLOPT_URL, $this->getRemoteUrl());
 	curl_setopt($ch, CURLOPT_FAILONERROR, true);
 	curl_setopt($ch, CURLOPT_HEADER, 0);
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -40,7 +33,7 @@ class Downloader
 	echo("** Extracting project zip...\n");
     $zip = new ZipArchive;
     $res = $zip->open($zipFile);
-    $this->projectName = $zip->getNameIndex(0);
+    $this->projectName = substr($zip->getNameIndex(0), 0, strlen($zip->getNameIndex(0))-1);
 
     if($res == TRUE) {
      $zip->extractTo($this->getDestinationDir());
@@ -50,10 +43,10 @@ class Downloader
     }
   }
 
-  public function downloadProjectGoogleCode()
+  public downloadProjectGoogleCode()
   {
   	echo("** Downloading project...\n");
-    $command = 'hg clone ' . $this->getRemoteUrl() . ' ' . $this->getDestinationDir() . 'project/';
+    $command = 'hg clone ' . $this->getRemoteUrl() . ' ' . $this->getDestinationDir() . $this->getProjectName();
     exec($command);
   }
 }
