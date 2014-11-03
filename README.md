@@ -9,6 +9,8 @@ The Downloader takes any project name and downloads it from GitHub or Google Cod
 
 The Umplificator then accesses the project directory and umplifies all Java files.
 
+The Downloader and Umplificator components are written in Umple, and need to be converted to PHP beforehand. Use the Umple jar to generate "Downloader.php" and "Umplificator.php" in the "app/models/" directory based off "downloader.ump" and "umplificator.ump" located in the "app/ump/" directory.
+
 Since at this stage no statistics are returned (yet!), the entire thing can be done through the command line, by running "DownloadProject.php" and using "gc" for Google Code repos and "gh" for Github repos:
 
 ```
