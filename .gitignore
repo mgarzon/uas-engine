@@ -1,3 +1,4 @@
 *.DS_Store
 app/models/Downloader.php
 app/models/Umplificator.php
+app/models/CodeAnalyzer.php

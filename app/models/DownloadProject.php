@@ -1,11 +1,13 @@
 <?php
   include("Downloader.php");
   include("Umplificator.php");
+  include("CodeAnalyzer.php");
 
   // Fetch command-line arguments
   $repo = $argv[1];
   $name = $argv[2];
-  $dir = $argv[3];
+  $umplificationLevel = $argv[3];
+  $dir = $argv[4];
 
   // Get project URL
   if(strcmp($repo, 'gh') == 0) {
@@ -35,4 +37,8 @@
 
   // Umplify project
    $myUmplificator = new Umplificator($myDownloader->getDestinationDir() . $myDownloader->getProjectName());
-   $myUmplificator->umplifyProject(0);
+   $myUmplificator->umplifyProject($umplificationLevel);
+
+   // Run Code Analyzer
+   $myCodeAnalyzer = new CodeAnalyzer($myDownloader->getDestinationDir() . $myDownloader->getProjectName());
+   $myCodeAnalyzer->getStats();

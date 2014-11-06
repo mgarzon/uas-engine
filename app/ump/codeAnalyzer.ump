@@ -1,0 +1,13 @@
+class CodeAnalyzer
+{
+
+  projectDirectory;
+
+  public function getStats()
+  {
+    echo("** Getting Project Statistics...\n");
+  	$command = 'java -jar ../vendor/umple.jar -g CodeAnalysis ' . $this->projectDirectory . '/src-umple/*.ump';
+    exec($command);
+    echo("** Code Analysis Complete!\n");
+  }
+}
