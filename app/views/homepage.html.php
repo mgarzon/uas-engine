@@ -1,10 +1,13 @@
 <?php
   if (!empty($_GET['act'])) {
-    echo "Hello world!"; //Your code here
+    //Your code here
   } else {}
 ?>
 
-<form action="index.php" method="get">
-  <input type="hidden" name="act" value="run">
-  <input type="submit" value="Run me now!">
+<form action="form_handler.php" method="post">
+	Project Repository: <input type="text" name="repo"><br>
+	Project Name: <input type="text" name="name"><br>
+	Umplification Level: <input type="number" name="umplificationLevel"><br>
+	Directory: <input type="text" name="dir"><br>
+	<input type="submit">
 </form>
