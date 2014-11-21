@@ -1,6 +1,6 @@
 class Grapher
 {
-  codeAnalysisHtmlFile;
+  projectUmpleSource;
   numberOfClasses = 0;
   numberOfAttributes = 0;
   numberOfAssociations = 0;
@@ -14,7 +14,7 @@ class Grapher
   public function fetchClasses()
   {
     echo("** Getting Number of Classes...\n");
-  	$htmlFile = file($this->codeAnalysisHtmlFile);
+  	$htmlFile = file($this->projectUmpleSource . "Master.html");
   	
   	// Find number of rows in the class table (substract last "Total" row)
   	$this->numberOfClasses = substr_count($htmlFile[2], "TableRow0") - 1;
@@ -23,7 +23,7 @@ class Grapher
   public function fetchAttributesAndAssociations()
   {
     echo("** Getting Number of Attributes & Associations...\n");
-  	$htmlFile = file($this->codeAnalysisHtmlFile);
+  	$htmlFile = file($this->projectUmpleSource . "Master.html");
 
   	// Find the word "Total" and fetch the number in the next table cell for attributes
   	$substringStartWithNumberOfAttributes = substr($htmlFile[4], strpos($htmlFile[4], "Total")+14);
@@ -37,4 +37,49 @@ class Grapher
   	$substringNumberOfAssociations = substr($substringStartWithNumberOfAssociations, 0, strpos($substringStartWithNumberOfAssociations, "</td>"));
   	$this->numberOfAssociations = (int)$substringNumberOfAssociations;
   }
+
+  public function generateGraph()
+  {
+    echo("** Generating Graph...\n");
+
+    $num = 75;
+  	
+  	$fileLocation = $this->projectUmpleSource . "Result.html";
+  	$htmlFile = fopen($fileLocation, "w") or die("Unable to open file!");
+  	$content = <<<EOD
+  		<!DOCTYPE html>
+  		<head>
+  			<title>Project Umplification Result</title>
+  		</head>
+		<body>
+			<h1>Modeling Results for Project</h1>
+			
+			<div id="graphDiv1"></div>
+			<!--[if IE]><script src="/Users/Nabil/Developer/uas-engine/app/vendor/excanvas.js"></script><![endif]-->
+			<script src="/Users/Nabil/Developer/uas-engine/app/vendor/html5-canvas-bar-graph.js"></script>
+			<script>(function () {
+				function createCanvas(divName) {
+					var div = document.getElementById(divName);
+					var canvas = document.createElement('canvas');
+					div.appendChild(canvas);
+					if (typeof G_vmlCanvasManager != 'undefined') {
+						canvas = G_vmlCanvasManager.initElement(canvas);
+					}	
+					var ctx = canvas.getContext("2d");
+					return ctx;
+				}
+				var ctx = createCanvas("graphDiv1");				
+				var graph = new BarGraph(ctx);
+				graph.margin = 2;
+				graph.colors = ["#87421f", "#9bce43", "#ee0000"];
+				graph.xAxisLabelArr = ["Classes", "Attributes", "Associations"];
+				graph.update([$this->numberOfClasses, $this->numberOfAttributes, $this->numberOfAssociations]);
+			}());</script>
+		</body>
+		</html>
+EOD;
+
+	fwrite($htmlFile, $content);
+	fclose($htmlFile);
+  }  
 }

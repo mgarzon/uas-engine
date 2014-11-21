@@ -45,5 +45,6 @@
    $myCodeAnalyzer->getStats();
 
    // Build graph
-   $myGrapher = new Grapher($myDownloader->getDestinationDir() . $myDownloader->getProjectName() . "/src-umple/Master.html");
+   $myGrapher = new Grapher($myDownloader->getDestinationDir() . $myDownloader->getProjectName() . "/src-umple/");
    $myGrapher->run();
+   $myGrapher->generateGraph();
