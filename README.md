@@ -24,7 +24,10 @@ Here is an example from Google Code (MOA project):
 php DownloadProject.php gc moa 0 ~/Developer/
 ```
 
-And here is an example from GitHub (ToroDB Database):
+And here are examples from GitHub (Droidicon and ToroDB Database):
+```
+php DownloadProject.php gh theDazzler/droidicon 0 ~/Developer/
+```
 ```
 php DownloadProject.php gh traex/RippleEffect 1 ~/Developer/
 ```

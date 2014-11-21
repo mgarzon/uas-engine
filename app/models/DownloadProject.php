@@ -2,6 +2,7 @@
   include("Downloader.php");
   include("Umplificator.php");
   include("CodeAnalyzer.php");
+  include("Grapher.php");
 
   // Fetch command-line arguments
   $repo = $argv[1];
@@ -42,3 +43,7 @@
    // Run Code Analyzer
    $myCodeAnalyzer = new CodeAnalyzer($myDownloader->getDestinationDir() . $myDownloader->getProjectName());
    $myCodeAnalyzer->getStats();
+
+   // Build graph
+   $myGrapher = new Grapher($myDownloader->getDestinationDir() . $myDownloader->getProjectName() . "/src-umple/Master.html");
+   $myGrapher->run();

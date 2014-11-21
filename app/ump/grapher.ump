@@ -1,0 +1,40 @@
+class Grapher
+{
+  codeAnalysisHtmlFile;
+  numberOfClasses = 0;
+  numberOfAttributes = 0;
+  numberOfAssociations = 0;
+
+  public run()
+  {
+    $this->fetchClasses();
+    $this->fetchAttributesAndAssociations();
+  }
+
+  public function fetchClasses()
+  {
+    echo("** Getting Number of Classes...\n");
+  	$htmlFile = file($this->codeAnalysisHtmlFile);
+  	
+  	// Find number of rows in the class table (substract last "Total" row)
+  	$this->numberOfClasses = substr_count($htmlFile[2], "TableRow0") - 1;
+  }
+
+  public function fetchAttributesAndAssociations()
+  {
+    echo("** Getting Number of Attributes & Associations...\n");
+  	$htmlFile = file($this->codeAnalysisHtmlFile);
+
+  	// Find the word "Total" and fetch the number in the next table cell for attributes
+  	$substringStartWithNumberOfAttributes = substr($htmlFile[4], strpos($htmlFile[4], "Total")+14);
+
+  	$substringNumberOfAttributes = substr($substringStartWithNumberOfAttributes, 0, strpos($substringStartWithNumberOfAttributes, "</td>"));
+  	$this->numberOfAttributes = (int)$substringNumberOfAttributes;
+
+  	// Scan the next table cell for associations
+	$substringStartWithNumberOfAssociations = substr($substringStartWithNumberOfAttributes, strpos($substringStartWithNumberOfAttributes, "<td>")+4);
+  	
+  	$substringNumberOfAssociations = substr($substringStartWithNumberOfAssociations, 0, strpos($substringStartWithNumberOfAssociations, "</td>"));
+  	$this->numberOfAssociations = (int)$substringNumberOfAssociations;
+  }
+}
