@@ -16,7 +16,7 @@ Finally, the Grapher looks at the results of the Code Analyzer, and generates a 
 Instructions:
 - All the components mentioned above are written in Umple, and need to be converted to PHP beforehand. Use the Umple jar to generate "Downloader.php", "Umplificator.php", "CodeAnalyzer.php", and "Grapher.php" in the "app/models/" directory based off "downloader.ump", "umplificator.ump", "codeAnalyzer.ump", and "grapher.ump" located in the "app/ump/" directory. This is done by running the following command from the inside the "app/ump/" directory:
 ```
-java -jar ../vendor/umple.jar -g Php --path app/models/ *
+java -jar ../vendor/umple.jar -g Php --path ../models/ *
 ```
 - At this stage, the entire thing can be done through the command line, by running "app/models/Main.php" from the root of the project and using "gc" for Google Code repos and "gh" for Github repos. ALWAYS run the following commands from the root of the uas-engine project:
 
