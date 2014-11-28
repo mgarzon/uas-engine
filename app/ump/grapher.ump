@@ -44,8 +44,12 @@ class Grapher
 
     $num = 75;
   	
+    $graphDependency1 = dirname(getcwd()) . "/vendor/excanvas.js";
+    $graphDependency2 = dirname(getcwd()) . "/vendor/html5-canvas-bar-graph.js";
+
   	$fileLocation = $this->projectUmpleSource . "Result.html";
   	$htmlFile = fopen($fileLocation, "w") or die("Unable to open file!");
+
   	$content = <<<EOD
   		<!DOCTYPE html>
   		<head>
@@ -55,8 +59,8 @@ class Grapher
 			<h1>Modeling Results for Project</h1>
 			
 			<div id="graphDiv1"></div>
-			<!--[if IE]><script src="/Users/Nabil/Developer/uas-engine/app/vendor/excanvas.js"></script><![endif]-->
-			<script src="/Users/Nabil/Developer/uas-engine/app/vendor/html5-canvas-bar-graph.js"></script>
+			<!--[if IE]><script src="$graphDependency1"></script><![endif]-->
+			<script src="$graphDependency2"></script>
 			<script>(function () {
 				function createCanvas(divName) {
 					var div = document.getElementById(divName);
@@ -79,7 +83,10 @@ class Grapher
 		</html>
 EOD;
 
-	fwrite($htmlFile, $content);
-	fclose($htmlFile);
+  	fwrite($htmlFile, $content);
+  	fclose($htmlFile);
+
+    // Print success and file location
+    echo("** Graph sucessfully generated in " . $fileLocation . "\n");  
   }  
 }
