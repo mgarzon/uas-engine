@@ -44,8 +44,8 @@ class Grapher
 
     $num = 75;
   	
-    $graphDependency1 = dirname(getcwd()) . "/vendor/excanvas.js";
-    $graphDependency2 = dirname(getcwd()) . "/vendor/html5-canvas-bar-graph.js";
+    $graphDependency1 = getcwd() . "/app/vendor/excanvas.js";
+    $graphDependency2 = getcwd() . "/app/vendor/html5-canvas-bar-graph.js";
 
   	$fileLocation = $this->projectUmpleSource . "Result.html";
   	$htmlFile = fopen($fileLocation, "w") or die("Unable to open file!");

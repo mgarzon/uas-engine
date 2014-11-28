@@ -6,7 +6,7 @@ class Umplificator
   public function umplifyProject($umplificationLevel)
   {
     echo("** Umplifying project...\n");
-  	$command = 'java -jar ' . dirname(getcwd()) . '/vendor/umplificator.jar -level=' . $umplificationLevel . ' -path=' . $this->projectDirectory . '/src-umple/ ' . $this->projectDirectory;
+  	$command = 'java -jar ' . getcwd() . '/app/vendor/umplificator.jar -level=' . $umplificationLevel . ' -path=' . $this->projectDirectory . '/src-umple/ ' . $this->projectDirectory;
     exec($command);
     echo("** Umplification complete! Resulting Umple files can be found at " . $this->projectDirectory . "/src-umple/\n");
   }
